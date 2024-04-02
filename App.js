@@ -39,13 +39,25 @@ export default function App() {
     });
 
     // Interação do usuario com a notificação
-    Notifications.addNotificationReceivedListener((resposta) => {
+    Notifications.addNotificationResponseReceivedListener((resposta) => {
       console.log(resposta);
     });
   }, []);
 
-  // Função para enviar notificação
-  const enviarNotificacao = () => {};
+  // Função para enviar notificação local
+  const enviarNotificacao = async () => {
+    // Mensagem enviada
+    const mensagem = {
+      title: "Lembrete!",
+      body: "Beba água 🥛",
+    };
+
+    // Função de agendamento de notificações
+    await Notifications.scheduleNotificationAsync({
+      content: mensagem,
+      trigger: { seconds: 5 },
+    });
+  };
 
   return (
     <>
