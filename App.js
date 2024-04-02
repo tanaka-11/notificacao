@@ -40,7 +40,7 @@ export default function App() {
 
     // Interação do usuario com a notificação
     Notifications.addNotificationResponseReceivedListener((resposta) => {
-      console.log(resposta);
+      setDados(resposta.notification.request.content.data); // resposta recebendo objeto data
     });
   }, []);
 
@@ -50,6 +50,10 @@ export default function App() {
     const mensagem = {
       title: "Lembrete!",
       body: "Beba água 🥛",
+      data: {
+        usuario: "Tanaka",
+        cidade: "São Paulo",
+      },
     };
 
     // Função de agendamento de notificações
@@ -65,6 +69,13 @@ export default function App() {
       <View style={styles.container}>
         <Text>Recurso de Notificação Local</Text>
         <Button title="Disparar notificação" onPress={enviarNotificacao} />
+
+        {dados && (
+          <View style={styles.viewDados}>
+            <Text style={styles.textoDados}>Usuario: {dados.usuario}</Text>
+            <Text style={styles.textoDados}>Cidade: {dados.cidade}</Text>
+          </View>
+        )}
       </View>
     </>
   );
@@ -76,5 +87,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    margin: 10,
+  },
+
+  viewDados: {
+    marginVertical: 10,
+    backgroundColor: "darkblue",
+    padding: 10,
+  },
+
+  textoDados: {
+    fontSize: 14,
+    color: "white",
   },
 });
