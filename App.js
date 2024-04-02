@@ -39,6 +39,9 @@ export default function App() {
     });
 
     // Interação do usuario com a notificação
+    Notifications.addNotificationReceivedListener((resposta) => {
+      console.log(resposta);
+    });
   }, []);
 
   // Função para enviar notificação
